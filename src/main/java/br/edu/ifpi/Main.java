@@ -1,87 +1,38 @@
 package br.edu.ifpi;
 
-import java.sql.Connection;
-
-import br.edu.ifpi.dao.DatabaseConnection;
-import br.edu.ifpi.dao.ProductDao;
-import br.edu.ifpi.entitie.Product;
-
 public class Main {
     public static void main(String[] args) {
 
-        // Trabalho demonstratvo sobre Design Patterns, apresentado na disciplina de
-        // Programação Orientada a Objetos, ministrada pelo professor Jesiel Viana, no
-        // curso de Análise e Desenvolvimento de Sistemas, no Instituto Federal do Piauí.
+        // Este código simples visa demonstrar o padrão de projeto State.
+        // O padrão de projeto State é utilizado quando um objeto altera 
+        // seu comportamento de acordo com o estado em que se encontra.
 
-        // O trabalho apresenta o padrão de projeto Adapter, que é um padrão estrutural
-        // que permite que objetos com interfaces incompatíveis trabalhem em conjunto.
-        // O padrão Adapter atua como uma camada intermediária entre duas classes,
-        // servindo como um tradutor entre classes. O padrão Adapter é muito útil quando
-        // se deseja reaproveitar uma classe já existente, mas que não possui a interface
-        // desejada. Neste exemplo, o padrão Adapter foi utilizado para adaptar o retorno
-        // do ResultSet para uma lista de produtos. 
-        
-        // Ele foi utilizado na classe ProductAdapter, que possui um método estático que 
-        // recebe um ResultSet e retorna uma lista de produtos. Assim, convertendo o 
-        // ResultSet para uma lista de produtos, que é a interface desejada.
+        // No exemplo abaixo, temos um processo que pode estar em 3 estados:
+        // Pronto, Executando e Finalizado. Cada estado possui um comportamento
+        // diferente para cada ação que pode ser executada no processo.
 
-        // O contexto utilizado para demonstrar o padrão Adapter foi um sistema de
-        // gerenciamento de produtos, onde é possível inserir, atualizar, deletar e
-        // buscar produtos no banco de dados. Para isso, foi utilizado o padrão DAO
-        // (Data Access Object), que é um padrão de projeto que permite separar as
-        // regras de negócio das regras de acesso a banco de dados.
+        // O padrão de projeto State é composto por 3 elementos:
+        // - Contexto: Classe que mantém uma referência para o estado atual.
+        // - Estado: Interface que define os métodos que serão implementados
+        //   pelos estados concretos.
+        // - Estados Concretos: Classes que implementam os métodos definidos
 
-        // ========== CONEXÃO COM O BANCO DE DADOS ==========
+        // Criando um contexto de processo e interagindo com ele
+        ProcessContext process = new ProcessContext();
 
-        Connection connection = DatabaseConnection.getConnection();
+        // Iniciando o processo
+        process.start();
 
-        // ========== INSTANCIANDO O DAO DE PRODUTOS ==========
+        // Tentando retomar o processo
+        process.resume();
 
-        ProductDao productDao = new ProductDao(connection);
+        // Suspender o processo
+        process.suspend();
 
-        // ========== INSERINDO PRODUTOS ==========
-        Product product = new Product("Product 2", "Description 2", 5.0, 20);
-        productDao.insert(product);
+        // Finalizar o processo
+        process.finish();
 
-        // ========== ATUALIZANDO PRODUTOS ==========
-        // Product product = new Product(1, "Product 1 atualizado", "Description 1", 10.0, 5);
-        // productDao.update(product);
-
-        // ========== DELETANDO PRODUTOS ==========
-        // Product product = new Product(1, "Product 1", "Description 1", 10.0, 5);
-        // productDao.delete(product);
-
-        // ========== BUSCANDO PRODUTOS ==========
-        // Product product = productDao.select(2);
-        // System.out.println("Nome: " + product.getName());
-        // System.out.println("Descrição: " + product.getDescription());
-        // System.out.println("Preço: " + product.getPrice());
-        // System.out.println("Quantidade: " + product.getQuantity());
-
-        // ---------- SAÍDA ----------
-        // Nome: Product 1
-        // Descrição: Description 1
-        // Preço: 10.0
-        // Quantidade: 10
-
-        // ========== BUSCANDO TODOS OS PRODUTOS ==========
-        // for (Product product : productDao.selectAll()) {
-        //     System.out.println("Nome: " + product.getName());
-        //     System.out.println("Descrição: " + product.getDescription());
-        //     System.out.println("Preço: " + product.getPrice());
-        //     System.out.println("Quantidade: " + product.getQuantity());
-        //     System.out.println();
-        // }
-
-        // ---------- SAÍDA ----------
-        // Nome: Product 1
-        // Descrição: Description 1
-        // Preço: 10.0
-        // Quantidade: 10
-
-        // Nome: Product 2
-        // Descrição: Description 2
-        // Preço: 5.0
-        // Quantidade: 20
+        // Tentando iniciar o processo novamente
+        process.start();
     }
 }
