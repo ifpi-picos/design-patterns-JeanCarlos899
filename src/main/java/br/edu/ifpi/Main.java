@@ -20,19 +20,31 @@ public class Main {
         // Criando um contexto de processo e interagindo com ele
         ProcessContext process = new ProcessContext();
 
-        // Iniciando o processo
+        // ===================Iniciando o processo=========================
+        // O estado inicial do processo é "Pronto", portanto, o método
+        // "start" irá alterar o estado do processo para "Executando"
         process.start();
 
-        // Tentando retomar o processo
+        // ====================Tentando retomar o processo=================
+        // O estado atual do processo é "Executando", portanto, o método
+        // "resume" não irá alterar o estado do processo, pois o mesmo
+        // já está no estado "Executando"
         process.resume();
 
-        // Suspender o processo
+        // =======================Suspendendo o processo===================
+        // O estado atual do processo é "Executando", portanto, o método
+        // "suspend" irá alterar o estado do processo para "Pronto"
         process.suspend();
 
-        // Finalizar o processo
+        // =======================Finalizando o processo===================
+        // O estado atual do processo é "Pronto", portanto, o método
+        // "finish" irá alterar o estado do processo para "Finalizado"
         process.finish();
 
-        // Tentando iniciar o processo novamente
+        // ===============Tenando iniciar o processo novamente=============
+        // O estado atual do processo é "Finalizado", portanto, o método
+        // "start" não irá alterar o estado do processo, pois o mesmo
+        // já está no estado "Finalizado"
         process.start();
     }
 }
