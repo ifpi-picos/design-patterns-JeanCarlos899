@@ -6,27 +6,27 @@ public class ProcessContext {
 
     public ProcessContext() {
         // Definindo o estado inicial como "Pronto"
-        this.currentState = new ReadyState();
+        this.currentState = new ReadyState(this);
     }
 
     public void start() {
-        currentState.start(this);
+        currentState.start();
     }
 
     public void suspend() {
-        currentState.suspend(this);
+        currentState.suspend();
     }
 
     public void resume() {
-        currentState.resume(this);
+        currentState.resume();
     }
 
     public void finish() {
-        currentState.finish(this);
+        currentState.finish();
     }
 
     public void setState(ProcessState state) {
-        System.out.println("Alterando o estado do processo.");
+        System.out.println("-alterando o estado do processo.");
         this.currentState = state;
     }
 }
